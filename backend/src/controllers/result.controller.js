@@ -53,6 +53,8 @@ const submitQuiz = asyncHandler(async (req, res) => {
   const result = await Result.create({
     quizId,
     studentId: req.user._id,
+    email: req.user.email,
+    fullName: req.user.fullName,
     answers,
     score: correctCount,
     totalQuestions,
@@ -78,7 +80,8 @@ const getLeaderboard = asyncHandler(async (req, res) => {
     status: "completed",
   })
     .populate("studentId", "name email")
-    .sort({ score: -1, timeTaken: 1 });
+    .sort({ score: -1, timeTaken: 1 })
+    .select("fullName email score timeTaken");
 
   return res
     .status(200)

@@ -12,6 +12,14 @@ const resultSchema = new Schema(
       ref: "User",
       required: true,
     },
+    email: {
+      type: String,
+      required: true,
+    },
+    fullName: {
+      type: String,
+      required: true,
+    },
     answers: [
       {
         questionId: {
