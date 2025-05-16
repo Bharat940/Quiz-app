@@ -35,19 +35,37 @@ const submitQuiz = asyncHandler(async (req, res) => {
     );
   }
 
-  const questionMap = {};
-  quiz.questionIds.forEach((q) => {
-    questionMap[q._id.toString()] = q.correctAnswerIndex;
-  });
+  // const questionMap = {};
+  // quiz.questionIds.forEach((q) => {
+  //   questionMap[q._id.toString()] = q.correctAnswerIndex;
+  // });
+
+  // let correctCount = 0;
+  // answers.forEach(({ questionId, givenAnswer }) => {
+  //   const correctAnswer = questionMap[questionId];
+  //   if (correctAnswer !== undefined && givenAnswer === correctAnswer) {
+  //     correctCount++;
+  //   }
+  // });
 
   let correctCount = 0;
-  answers.forEach(({ questionId, givenAnswer }) => {
-    const correctAnswer = questionMap[questionId];
-    if (correctAnswer !== undefined && givenAnswer === correctAnswer) {
-      correctCount++;
-    }
-  });
+  for (let i = 0; i < answers.length; i++) {
+    const userAnswer = answers[i];
+    const question = quiz.questionIds.find(
+      (q) => q._id.toString() === userAnswer.questionId
+    );
+    if (question) {
+      const correctAnswerIndex = question.correctAnswerIndex;
+      const givenAnswerIndex = parseInt(userAnswer.givenAnswer);
 
+      if (
+        correctAnswerIndex !== undefined &&
+        givenAnswerIndex === correctAnswerIndex
+      ) {
+        correctCount++;
+      }
+    }
+  }
   const totalQuestions = quiz.questionIds.length;
 
   const result = await Result.create({
@@ -69,11 +87,11 @@ const submitQuiz = asyncHandler(async (req, res) => {
 });
 
 const getStudentResults = asyncHandler(async (req, res) => {
-  const studentId = req.user._id; // Assuming user is authenticated and their ID is in req.user
+  const studentId = req.user._id;
 
   const results = await Result.find({ studentId })
-    .populate("quizId", "title") // Populate quiz title for better context
-    .sort({ completedAt: -1 }); // Sort by completion date, newest first
+    .populate("quizId", "title")
+    .sort({ completedAt: -1 });
 
   return res
     .status(200)
