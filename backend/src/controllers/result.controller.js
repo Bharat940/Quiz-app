@@ -108,4 +108,4 @@ const getLeaderboard = asyncHandler(async (req, res) => {
     );
 });
 
-export { submitQuiz, getLeaderboard };
+export { submitQuiz, getLeaderboard, getStudentResults };
