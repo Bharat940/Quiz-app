@@ -68,6 +68,24 @@ const submitQuiz = asyncHandler(async (req, res) => {
     .json(new ApiResponse(201, result, "Quiz submitted successfully"));
 });
 
+const getStudentResults = asyncHandler(async (req, res) => {
+  const studentId = req.user._id; // Assuming user is authenticated and their ID is in req.user
+
+  const results = await Result.find({ studentId })
+    .populate("quizId", "title") // Populate quiz title for better context
+    .sort({ completedAt: -1 }); // Sort by completion date, newest first
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        results,
+        "Student's quiz results fetched successfully"
+      )
+    );
+});
+
 const getLeaderboard = asyncHandler(async (req, res) => {
   const { quizId } = req.params;
 
