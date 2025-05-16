@@ -117,7 +117,7 @@ const getLeaderboard = asyncHandler(async (req, res) => {
   })
     .populate("studentId", "name email")
     .sort({ score: -1, timeTaken: 1 })
-    .select("fullName email score timeTaken");
+    .select("fullName email score timeTaken completedAt");
 
   return res
     .status(200)
