@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   submitQuiz,
   getLeaderboard,
+  getStudentResults,
 } from "../controllers/result.controller.js";
 import { verifyJwt } from "../middlewares/auth.middleware.js";
 import { authorizeRoles } from "../middlewares/authorizeRoles.middleware.js";
