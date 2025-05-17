@@ -6,8 +6,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: ['http://localhost:5173'],
-    credentials: true, 
+    origin: [
+      "http://localhost:5173",
+      "https://quiz-app-six-rust-67.vercel.app/",
+    ],
+    credentials: true,
   })
 );
 
