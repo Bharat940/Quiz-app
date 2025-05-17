@@ -28,7 +28,7 @@ const submitQuiz = asyncHandler(async (req, res) => {
     }
   }
 
-  if (timeTaken > quiz.duration) {
+  if (timeTaken > quiz.duration * 60) {
     throw new ApiError(
       400,
       `Quiz duration exceeded. Allowed: ${quiz.duration} min`
