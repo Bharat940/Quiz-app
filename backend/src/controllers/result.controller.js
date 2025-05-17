@@ -35,19 +35,6 @@ const submitQuiz = asyncHandler(async (req, res) => {
     );
   }
 
-  // const questionMap = {};
-  // quiz.questionIds.forEach((q) => {
-  //   questionMap[q._id.toString()] = q.correctAnswerIndex;
-  // });
-
-  // let correctCount = 0;
-  // answers.forEach(({ questionId, givenAnswer }) => {
-  //   const correctAnswer = questionMap[questionId];
-  //   if (correctAnswer !== undefined && givenAnswer === correctAnswer) {
-  //     correctCount++;
-  //   }
-  // });
-
   let correctCount = 0;
   for (let i = 0; i < answers.length; i++) {
     const userAnswer = answers[i];

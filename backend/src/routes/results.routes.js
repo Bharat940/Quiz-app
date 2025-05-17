@@ -15,5 +15,5 @@ router
   .get(verifyJwt, authorizeRoles("teacher"), getLeaderboard);
 router
   .route("/student")
-  .get(verifyJwt, authorizeRoles("student"), getStudentResults); // New route
+  .get(verifyJwt, authorizeRoles("student"), getStudentResults);
 export default router;
