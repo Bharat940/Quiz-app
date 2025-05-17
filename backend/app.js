@@ -6,7 +6,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://quiz-app-six-rust-67.vercel.app/",
+    origin: "https://quiz-app-six-rust-67.vercel.app",
     credentials: true,
   })
 );
